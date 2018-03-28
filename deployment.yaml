@@ -1,1 +1,40 @@
-apiVersion: extensions/v1beta1kind: Deploymentmetadata: labels:   app: az-aks-challenge   component: captureorder name: captureorderspec: replicas: 10 selector:   matchLabels:     app: az-aks-challenge     component: captureorder strategy:   rollingUpdate:     maxSurge: 1     maxUnavailable: 1   type: RollingUpdate template:   metadata:     labels:       app: az-aks-challenge       component: captureorder   spec:     containers:     - env:       - name: TEAMNAME         value: honey-badgers       - name: AMQPURL         value: amqps://RootManageSharedAccessKey:Ws9MR7LQNzHy1xEpfzjZ5zkl%2FuuZ%2FQlihXRqARu4IsQ%3D@k8-hack-eventhub.servicebus.windows.net/k8-hack-eventhub       - name: MONGOURL         value: mongodb://k8hack:H30sI3NQxiWTtNg9obm5PqtuF2qocDyDyU6txGi9GM2LtjKmW356BeL3IL6xl4OL82G2eG5SfoUQp88axnqocQ==@k8hack.documents.azure.com:10255/?ssl=true&replicaSet=globaldb       - name: APPINSIGHTS_KEY         value: d2876f3e-a5cc-4845-8ca3-475858b95d24       image: outsurance.azurecr.io/captureorderack-netcore       imagePullPolicy: Always       name: captureorder       ports:       - containerPort: 8080         protocol: TCP
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+ labels:
+   app: az-aks-challenge
+   component: captureorder
+ name: captureorder
+spec:
+ replicas: 10
+ selector:
+   matchLabels:
+     app: az-aks-challenge
+     component: captureorder
+ strategy:
+   rollingUpdate:
+     maxSurge: 1
+     maxUnavailable: 1
+   type: RollingUpdate
+ template:
+   metadata:
+     labels:
+       app: az-aks-challenge
+       component: captureorder
+   spec:
+     containers:
+     - env:
+       - name: TEAMNAME
+         value: honey-badgers
+       - name: AMQPURL
+         value: amqps://RootManageSharedAccessKey:Ws9MR7LQNzHy1xEpfzjZ5zkl%2FuuZ%2FQlihXRqARu4IsQ%3D@k8-hack-eventhub.servicebus.windows.net/k8-hack-eventhub
+       - name: MONGOURL
+         value: mongodb://k8hack:H30sI3NQxiWTtNg9obm5PqtuF2qocDyDyU6txGi9GM2LtjKmW356BeL3IL6xl4OL82G2eG5SfoUQp88axnqocQ==@k8hack.documents.azure.com:10255/?ssl=true&replicaSet=globaldb
+       - name: APPINSIGHTS_KEY
+         value: d2876f3e-a5cc-4845-8ca3-475858b95d24
+       image: outsurance.azurecr.io/captureorderack-netcore
+       imagePullPolicy: Always
+       name: captureorder
+       ports:
+       - containerPort: 8080
+         protocol: TCP
